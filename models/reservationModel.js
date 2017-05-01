@@ -13,23 +13,33 @@ var reservationModel = new Schema({
     facilityPrice: {
         type: String
     },
-    equipments: [{
-        equipmentName: {
-            type: String
-        },
-        price: {
-            type: String
-        },
-    }],
     reservations: [{
         customerName: {
+            type: String
+        },
+        passWord: {
+            type: String
+        },
+        custID: {
             type: String
         },
         date: {
             type: String
         },
+        time: {
+            type: String
+        },
+        equipments: [{
+            equipmentName: {
+                type: String
+            },
+            price: {
+                type: String
+            }
+        }]
     }],
 });
+
 
 //for some reason, you have to name your json model as the singular version
 //of your imported mongodb:
