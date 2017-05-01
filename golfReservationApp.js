@@ -56,9 +56,9 @@ reservationRouter.route('/courses')
         }
     });
 });
-
-//allow endpoint to filter by unique id
-reservationRouter.route('/courses/:facilityId')
+//reservationRouter.use('/courses/:facilityId', function(req.res.next)
+//get all reservations from a facility
+reservationRouter.route('/courses/:facilityId/')
 .get(function(req, res) {
     Reservation.findById(req.params.facilityId, function(err, golfcourse) {
         if (err) {
@@ -66,7 +66,55 @@ reservationRouter.route('/courses/:facilityId')
         }else{
             res.json(golfcourse);
         }
-    });
+    })
+})
+//update all reservations in a facility
+.put(function(req, res) {
+    Reservation.findById(req.params.facilityId, function(err, golfcourse) {
+        if (err) {
+            res.status(500).send(err + ": The server encountered an unexpected condition which prevented it from fulfilling the request.");
+        }else{
+            golfcourse.facility = req.body.facility;
+            golfcourse.facilityPrice = req.body.facilityPrice;
+            golfcourse.reservations = req.body.reservations;
+            golfcourse.save();
+            res.json(golfcourse);
+        }
+    })
+});
+
+//allow to filter for a reservation based off facility and a customer id
+reservationRouter.route('/courses/:facilityId/:reservationId')
+.get(function(req, res) {
+    Reservation.findById(req.params.facilityId, function(err, golfcourse) {
+        if (err) {
+            res.status(500).send(err + ": The server encountered an unexpected condition which prevented it from fulfilling the request.");
+        }else{
+            //loop through a facility's reservations until a user id matches the requested id
+            for (var i=0; i<golfcourse.reservations.length; i++ ) {
+                if (golfcourse.reservations[i].custID == req.params.reservationId) {
+                    res.json(golfcourse.reservations[i]);
+                }else{
+                    res.json("failed");
+                }
+            }
+        }
+    })
+})
+
+//update an entire facility's information
+.put(function(req, res) {
+    Reservation.findById(req.params.facilityId, function(err, golfcourse) {
+        if (err) {
+            res.status(500).send(err + ": The server encountered an unexpected condition which prevented it from fulfilling the request.");
+        }else{
+            golfcourse.facility = req.body.facility;
+            golfcourse.facilityPrice = req.body.facilityPrice;
+            golfcourse.reservations = req.body.reservations;
+            golfcourse.save();
+            res.json(golfcourse);
+        }
+    })
 });
 
 //define endpoint schema

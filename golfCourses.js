@@ -3,6 +3,7 @@ db.golfcourses.insert([
         facility: 'Facility 001',
         facilityPrice: '$10.00',
         reservations: [{
+            reservationID: 'id',
             customerName: 'Jack',
             passWord: 'password',
             custID: 'id',
@@ -18,6 +19,7 @@ db.golfcourses.insert([
         facility: 'Facility 002',
         facilityPrice: '$10.00',
         reservations: [{
+            reservationID: 'id',
             customerName: 'Jack',
             passWord: 'password',
             custID: 'id',
@@ -33,6 +35,7 @@ db.golfcourses.insert([
         facility: 'Facility 003',
         facilityPrice: '$10.00',
         reservations: [{
+            reservationID: 'id',
             customerName: 'Jeff',
             passWord: 'password',
             custID: 'id',

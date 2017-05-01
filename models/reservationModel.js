@@ -14,6 +14,9 @@ var reservationModel = new Schema({
         type: String
     },
     reservations: [{
+        reservationID : {
+           type: String 
+        },
         customerName: {
             type: String
         },
