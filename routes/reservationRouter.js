@@ -3,8 +3,9 @@ var express = require('express');
 var routes = function(Reservation) {
 
     var reservationRouter = express.Router();
-
+    
     reservationRouter.route('/')
+        //actually creates an entirely new facility and not only a new reservation
         .post(function(req, res){
             var newReservation = new Reservation(req.body);
             newReservation.save();
@@ -51,18 +52,62 @@ var routes = function(Reservation) {
             res.json(req.golfcourse);
         })
 
-        //update all reservations from a facility
+        //update an entire facility's data
         .put(function(req, res) {
             
             req.golfcourse.facility = req.body.facility;
             req.golfcourse.facilityPrice = req.body.facilityPrice;
             req.golfcourse.reservations = req.body.reservations;
-            //req.golfcourse.save();
+            /**
+            req.golfcourse.save(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                }else{
+                    res.json(req.golfcourse);
+                }
+            });
+            **/
             res.json(req.golfcourse);
                 
+        })
+        
+        //update a facility's specific information
+        .patch(function(req, res) {
+            //don't update the id
+            if (req.body._id) {
+                delete req.body._id;
+            }
+            //iterate through the element of the body and assign it to the golfdata
+            for (var i in req.body) {
+                req.golfcourse[i] = req.body[i];
+            }
+            
+            /**
+            req.golfcourse.save(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                }else{
+                    res.json(req.golfcourse);
+                }
+            });
+            **/
+            res.json(req.golfcourse);
+        })
+        
+        //allows for deletion of entire facilities
+        .delete(function(req, res) {
+            var tmpFacility = req.golfcourse;
+            req.golfcourse.remove(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                }else{
+                    //console.log("Successfully removed the facility");
+                    res.status(404).send("Successfully removed " + tmpFacility.facility);
+                }
+            });
         });
 
-    //allow to filter for a reservation from a facility
+    //allow to filter for a specific reservation from a facility
     reservationRouter.route('/:facilityId/:reservationId')
         //get a specific reservation from a specific facility
         .get(function(req, res) {
@@ -90,7 +135,7 @@ var routes = function(Reservation) {
             }
         })
 
-        //update a specific reservation from a specific facility
+        //update an entire specific reservation from a specific facility
         .put(function(req, res) {
             //loop through a facility's reservations until a user id matches the requested id
             try {
@@ -98,13 +143,15 @@ var routes = function(Reservation) {
                 for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
                     if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
                         index = i;
-                        console.log("Sucessfully updated the reservation");
+                        console.log("Successfully found the reservation");
                     }
                 }
                     if (index > -1) {
-                        req.golfcourse.reservations[index].date = req.body.date;
-                        req.golfcourse.reservations[index].time = req.body.time;
-                        req.golfcourse.reservations[index].equipments = req.body.equipments;
+                        //only allow updates of valid fields
+                        for (var i in req.body) {
+                            req.golfcourse.reservations[index][i] = req.body[i];
+                            //console.log("Updating <"+req.golfcourse.reservations[index][i] +"> to <"+req.body[i]+">");
+                        }
                         res.json(req.golfcourse.reservations[index]);
                     }else{
                         res.status(404).send("Cannot update the requested reservation because it does not exist.");
@@ -112,7 +159,86 @@ var routes = function(Reservation) {
             }catch(error){
                 console.log("Express Fatal " + error);
             }
+        })
+        
+        //update a specific information of a specific reservation from a specific facility
+        .patch(function(req, res) {
+            //loop through a facility's reservations until a user id matches the requested id
+            try {
+                var index = -1;
+                for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
+                    if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                        index = i;
+                        console.log("Successfully found the reservation");
+                    }
+                }
+                    if (index > -1) {
+                        //automatically delete the id so we don't accidentally update it
+                        if (req.body._id) {
+                            delete req.body._id;
+                        }
+                        
+                        //only allow updates of valid fields
+                        for (var i in req.body) {
+                            //console.log("Updating <"+req.golfcourse.reservations[index][i]+"> to <"+req.body[i]+">");
+                            req.golfcourse.reservations[index][i]=req.body[i];
+                        }
+                        
+                        /**
+                        req.golfcourse.save(function(err) {
+                            if (err) {
+                                res.status(500).send(err);
+                            }else{
+                                res.json(req.golfcourse);
+                            }
+                        });
+                        **/
+                        res.json(req.golfcourse.reservations[index]);
+                    }else{
+                        res.status(404).send("Cannot update the requested reservation because it does not exist.");
+                    }
+            }catch(error){
+                console.log("Express Fatal " + error);
+            }
+        })
+        /**/
+        //allows for deletion of a specific reservation from a facility
+        .delete(function(req, res) {
+            var index = -1;
+            var tmpReservation = "UNKNOWN";
+            
+            for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
+                if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                    index = i;
+                    console.log("Successfully found the reservation");
+                }
+            }
+            
+            tmpReservation = req.golfcourse.reservations[index];
+            
+            req.golfcourse.reservations[index].remove(function(err) {
+                if (err) {
+                    res.status(500).send(err);
+                }else{
+                    //delete the array element
+                    req.golfcourse.reservations.splice(index,1);
+                    //then we need to save it
+                    /**
+                    req.golfcourse.save(function(err) {
+                        if (err) {
+                            res.status(500).send(err);
+                        }else{
+                            res.json(req.golfcourse);
+                        }
+                    });
+                    **/
+                    console.log("Successfully removed the facility");
+                    //res.json(req.golfcourse);
+                }
+            });
+            
         });
+        /**/
     return reservationRouter;
 }
 
