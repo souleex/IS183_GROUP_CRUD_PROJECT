@@ -1,17 +1,21 @@
-# IS-183 Golf Tee Time Reservation System
+## Golf Tee Reservation System
+<br><b>Contributers</b><br>
+Sou Lee: Main Backend API Developer/Assitant Database Admin/Assistant Frontend Developer<br>
+Mike Dong: Main Frontend Developer<br>
+Michael Alleyne: Main Database Administrator<br>
+Kevin Danny: Assitant Frontend Developer<br>
 
-## Angular CLI Tutorial Source:
-https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli
+#External Sources of Help:
+"MEAN Stack Front To Back" by Traversy Media
+<br>(https://www.youtube.com/playlist?list=PLillGF-RfqbZMNtaOXJQiDebNXjVapWPZ)<br>
+"Book App" by Lucas Phan
+<br>(https://github.com/Endtry/BookApp)<br>
 
-## How to Run It
-
-To run the client:<br>
-(1) use "npm install" if you don't see the "node_module" folder.<br>
-(2) Then use "npm start" and go to "localhost:3000":<br>
-
-To run the server::<br>
-(1) install the database to mongo by going into the "server_golf_api" folder and using the command terminal.:<br>
-(2) type in "mongo reservationAPI < reservationsAPI.js" to start the import
-(3) go inside the "server_golf_api" folder.:<br>
-(4) use "npm install" if you don't see the "node_module" folder inside the "server_golf_api" folder:<br>
-(5) then run "gulp":
+#How to Run It
+Assumes you have the correct database inserted into MongoDB<br>
+<br>
+(1) In the Root Folder, do "npm install"<br>
+(2) Then launch the express server via "npm start" or "gulp"<br>
+(3) Go inside the "angular-client" folder and do "npm install"<br>
+(4) launch the client agnular client app with "npm start"<br>
+(5) Go to http://localhost:4200/
