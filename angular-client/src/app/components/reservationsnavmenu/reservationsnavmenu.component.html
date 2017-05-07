@@ -66,11 +66,8 @@
                     <p class="group inner list-group-item-text">
                         Time: {{ reservation['time'] }}
                     </p>
-                    <p class="group inner list-group-item-text" *ngIf="reservation['walk']">
-                        Walking
-                    </p>
-                    <p class="group inner list-group-item-text" *ngIf="!reservation['walk']">
-                        Riding
+                    <p class="group inner list-group-item-text">
+                        Walk or Ride: {{ reservation['walkRide'] }}
                     </p>
                     <label style="display:flex;">Equipment(s):</label>
                     <ul class="list-group" style="display:inline-block">

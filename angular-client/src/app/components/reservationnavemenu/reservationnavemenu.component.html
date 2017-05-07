@@ -1,2 +1,44 @@
 <a [routerLink]="[facilityId]"><button class="btn btn-default">Back to Reservations</button></a>
 
+<div id="products" class="row list-group">
+    <div class="item  col-xs-4 col-lg-4" style="margin-left: 35%;">
+        <div class="thumbnail">
+            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                    New Reservation
+                </h4>
+                <form class="form-group" [formGroup]="newReservationForm" (ngSubmit)="submitNewReservation($event)">
+                    <input type="text" class="form-control" id="name" formControlName="customerName" placeholder="Your Name">
+                    <input type="text" class="form-control" id="date" formControlName="date" placeholder="The Date">
+                    <input type="text" class="form-control" id="time" formControlName="time" placeholder="The Time">
+                    <select class="form-control" id="walk-ride"  formControlName="walkRide">
+                        <option>Walk</option>
+                        <option>Ride</option>
+                    </select>
+                    
+                    <label style="display:flex;">
+                        Equipment(s):
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Fee(s):
+                    </label>
+                    <ul class="list-group" style="float:left">
+                        <input type="text" class="form-control" formControlName="equipmentName" placeholder="Equipment">
+                    </ul>
+                    
+                    <ul class="list-group" style="float:right; width:33.333%">
+                        <input type="text" class="form-control" formControlName="price">
+                    </ul>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

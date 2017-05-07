@@ -6,6 +6,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+//import form module for getting form data
+import { ReactiveFormsModule } from '@angular/forms';
+
 //import our router modules
 import { RouterModule, Routes } from '@angular/router';
 
@@ -53,7 +56,7 @@ var appRoutes: Routes = [
         component: ReservationsnavmenuComponent
     },
     {
-        path: 'reservation/:facilityId',
+        path: 'addreservation/:facilityId',
         component: ReservationnavemenuComponent
     }
 ]
@@ -72,6 +75,7 @@ var appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   //services go inside providers

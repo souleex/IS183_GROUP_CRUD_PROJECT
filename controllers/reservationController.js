@@ -46,7 +46,7 @@
                     if (err) {
                         res.status(500).send(err);
                     }else{
-                        res.json(req.golfcourse);
+                        res.json(1);
                     }
                 });
             }catch(error){
@@ -228,7 +228,7 @@
                         if (err) {
                             res.status(500).send(err);
                         }else{
-                            res.json(req.golfcourse);
+                            res.json(true);
                         }
                     });
                     /**/

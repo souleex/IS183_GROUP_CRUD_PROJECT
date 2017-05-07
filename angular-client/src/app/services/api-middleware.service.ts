@@ -26,6 +26,7 @@ export class APIMiddleWare {
         });
     }
 
+    //get all reservations from a facility
     getReservations(facilityId): Promise<Array<Object>> {
         return this.http.get('http://localhost:8100/api/courses/'+facilityId).toPromise().then((resp) => {
             let reservations = resp.json();
@@ -34,11 +35,36 @@ export class APIMiddleWare {
         });
     }
     
+    //add a new reservation into a facility
+    addNewReservation(facilityId, dataObj){
+        this.http.post('http://localhost:8100/api/courses/'+facilityId, dataObj).toPromise().then((resp) => {
+            console.log(resp);
+            
+            //this part should be removed from the middleware and into
+            //the componnent, but I'm not sure how
+            if (resp['_body'] == 1 ) {
+                console.log("saved new reservation");
+                this.router.navigate(['/facilities/'+facilityId]);
+            }else{
+                console.log("could not save new reservation");
+            }
+        });
+    }
+    
+    //delete a reservation from a facility
     deleteReservation(facilityId, reservationId) {
-        return this.http.delete('http://localhost:8100/api/courses/'+facilityId+'/'+reservationId).toPromise().then((resp) => {
-            let deletion = resp.json();
-            console.log(deletion);
-            window.location.reload();
+        this.http.delete('http://localhost:8100/api/courses/'+facilityId+'/'+reservationId).toPromise().then((resp) => {
+            let deleted = resp.json();
+            console.log(deleted);
+            
+            //this part should be removed from the middleware and into
+            //the componnent, but I'm not sure how
+            if (deleted) {
+                console.log("deleted reservation");
+                window.location.reload();
+            }else{
+                console.log("could not delete reservation");
+            }
         });
     };
 

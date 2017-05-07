@@ -1,6 +1,4 @@
-<p>
-  mainnavmenu works!
-</p>
+<a [routerLink]="['/']"><button class="btn btn-default">Log Out</button></a>
 <!--image gallery obtained from: http://bootsnipp.com/snippets/x8raN along with corresponding css-->
 <div class="container">
   <div class="row">
@@ -14,7 +12,7 @@
             <div class="row">
             <!--make a loop to dynamically display available facilities-->
               <div class="col-md-4" *ngFor="let facility of facilities; let i = index">
-                <a class="thumbnail" [routerLink]="[facility['_id']]"><img alt="" src="http://placehold.it/150x150">{{ facility['facility'] }}</a>
+                <a class="thumbnail" [routerLink]="[facility['_id']]" style="text-align:center;"><img alt="" src="http://placehold.it/150x150">{{ facility['facility'] }}</a>
               </div>
             </div>
           </div>

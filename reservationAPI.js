@@ -6,9 +6,9 @@ db.golfcourses.insert([
         reservations: [{
             _id: new ObjectId(),
             customerName: 'Jack',
-            passWord: 'x1234',
             date: '04/25//2016',
             time: '12:00pm',
+            walkRide: 'Walk',
             equipments: [{
                 _id: new ObjectId(),
                 equipmentName: 'equipment a54',
@@ -23,9 +23,9 @@ db.golfcourses.insert([
         reservations: [{
             _id: new ObjectId(),
             customerName: 'Sam',
-            passWord: 'x5678',
             date: '04/26//2016',
             time: '2:00pm',
+            walkRide: 'Ride',
             equipments: [{
             _id: new ObjectId(),
                 equipmentName: 'equipment b98',
@@ -40,9 +40,9 @@ db.golfcourses.insert([
         reservations: [{
             _id: new ObjectId(),
             customerName: 'Luis',
-            passWord: 'x101112',
             date: '04/27//2016',
             time: '12:30pm',
+            walkRide: 'Ride',
             equipments: [{
             _id: new ObjectId(),
                 equipmentName: 'equipment c65',

@@ -31,9 +31,20 @@ export class ReservationsnavmenuComponent implements OnInit {
             this.reservations = resp;
         });
     }
-    
+    /**
+     * API Middleware Functions
+     **/
     getReservations() {
         return this.apiMiddleWare.getReservations(this.facilityId);
+    }
+    
+    deleteReservation(event, reservationId) {
+        console.log("Someone wanted to delete reservation: " + reservationId);
+        this.apiMiddleWare.deleteReservation(this.facilityId, reservationId);
+        //console.log("successfully deleted reservation and refreshing the page: " + resp);
+        //location.reload();
+        //console.log(this.facilityId);
+        //this.router.navigate(['/facilities/'+this.facilityId]);
     }
     
     /**
@@ -41,15 +52,7 @@ export class ReservationsnavmenuComponent implements OnInit {
      **/
     addNewReservation(event) {
         console.log("Someone wants to add a new reservation");
-        this.router.navigate(['/reservation/'+this.facilityId]);
-    }
-     
-    deleteReservation(event, reservationId) {
-        console.log("Someone wanted to delete reservation: " + reservationId);
-        this.apiMiddleWare.deleteReservation(this.facilityId, reservationId);
-        //console.log(this.facilityId);
-        //this.router.navigate(['/facilities/'+this.facilityId]);
-        //window.location.reload();
+        this.router.navigate(['/addreservation/'+this.facilityId]);
     }
     
     reservationsListView(event) {
