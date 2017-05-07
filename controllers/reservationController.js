@@ -37,7 +37,7 @@
         }
         
         var insertNewReservation = function(req, res) {
-        //loop through a facility's reservations until a user id matches the requested id
+        //add the new reservation to the end of the reservations array
             try {
                 var lastElement = req.golfcourse.reservations.length;
                 req.golfcourse.reservations.splice(lastElement,0, req.body);
@@ -59,7 +59,7 @@
             req.golfcourse.facility = req.body.facility;
             req.golfcourse.facilityPrice = req.body.facilityPrice;
             req.golfcourse.reservations = req.body.reservations;
-            /**
+            /**/
             req.golfcourse.save(function(err) {
                 if (err) {
                     res.status(500).send(err);
@@ -67,7 +67,7 @@
                     res.json(req.golfcourse);
                 }
             });
-            **/
+            /**/
             res.json(req.golfcourse);
         }
         
@@ -81,7 +81,7 @@
                 req.golfcourse[i] = req.body[i];
             }
             
-            /**
+            /**/
             req.golfcourse.save(function(err) {
                 if (err) {
                     res.status(500).send(err);
@@ -89,8 +89,7 @@
                     res.json(req.golfcourse);
                 }
             });
-            **/
-            res.json(req.golfcourse);
+            /**/
         }
         
         var removeFacility = function(req, res) {
@@ -115,7 +114,7 @@
                 //a -1 index
                 var index = -1;
                 for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
-                    if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                    if ( req.golfcourse.reservations[i]._id == req.params.reservationId ) {
                         //then if an element is found we set index to the element's index
                         index = i;
                         console.log("A matching reservation was found");
@@ -138,7 +137,7 @@
             try {
                 var index = -1;
                 for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
-                    if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                    if ( req.golfcourse.reservations[i]._id == req.params.reservationId ) {
                         index = i;
                         console.log("Successfully found the reservation");
                     }
@@ -149,7 +148,14 @@
                             req.golfcourse.reservations[index][i] = req.body[i];
                             //console.log("Updating <"+req.golfcourse.reservations[index][i] +"> to <"+req.body[i]+">");
                         }
-                        res.json(req.golfcourse.reservations[index]);
+                        //res.json(req.golfcourse.reservations[index]);
+                        req.golfcourse.save(function(err) {
+                            if (err) {
+                                res.status(500).send(err);
+                            }else{
+                                res.json(req.golfcourse);
+                            }
+                        });
                     }else{
                         res.status(404).send("Cannot update the requested reservation because it does not exist.");
                     }
@@ -163,7 +169,7 @@
             try {
                 var index = -1;
                 for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
-                    if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                    if ( req.golfcourse.reservations[i]._id == req.params.reservationId ) {
                         index = i;
                         console.log("Successfully found the reservation");
                     }
@@ -180,16 +186,15 @@
                             req.golfcourse.reservations[index][i]=req.body[i];
                         }
                         
-                        /**
+                        /**/
                         req.golfcourse.save(function(err) {
                             if (err) {
                                 res.status(500).send(err);
                             }else{
-                                res.json(req.golfcourse);
+                                res.json(req.golfcourse.reservations[index]);
                             }
                         });
-                        **/
-                        res.json(req.golfcourse.reservations[index]);
+                        /**/
                     }else{
                         res.status(404).send("Cannot update the requested reservation because it does not exist.");
                     }
@@ -203,7 +208,7 @@
             var tmpReservation = "UNKNOWN";
             
             for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
-                if ( req.golfcourse.reservations[i].reservationID == req.params.reservationId ) {
+                if ( req.golfcourse.reservations[i]._id == req.params.reservationId ) {
                     index = i;
                     console.log("Successfully found the reservation");
                 }

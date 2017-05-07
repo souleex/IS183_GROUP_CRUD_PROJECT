@@ -14,16 +14,10 @@ var reservationModel = new Schema({
         type: String
     },
     reservations: [{
-        reservationID : {
-           type: String 
-        },
         customerName: {
             type: String
         },
         passWord: {
-            type: String
-        },
-        custID: {
             type: String
         },
         date: {
@@ -31,6 +25,9 @@ var reservationModel = new Schema({
         },
         time: {
             type: String
+        },
+        walk: {
+            type: Boolean
         },
         equipments: [{
             equipmentName: {

@@ -12,7 +12,7 @@
 <br>(https://github.com/Endtry/BookApp)<br>
 
 # How to Run It
-Assumes you have the correct database inserted into MongoDB<br>
+Assumes you have the correct database ("reservationAPI.js") inserted into MongoDB<br>
 <br>
 (1) In the Root Folder, do "npm install"<br>
 (2) Then launch the express server via "npm start" or "gulp"<br>

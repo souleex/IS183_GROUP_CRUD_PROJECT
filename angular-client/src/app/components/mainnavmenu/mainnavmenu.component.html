@@ -14,7 +14,7 @@
             <div class="row">
             <!--make a loop to dynamically display available facilities-->
               <div class="col-md-4" *ngFor="let facility of facilities; let i = index">
-                <a class="thumbnail" [routerLink]="[facilities[i]['_id']]"><img alt="" src="http://placehold.it/150x150">{{ facilities[i]['facility'] }}</a>
+                <a class="thumbnail" [routerLink]="[facility['_id']]"><img alt="" src="http://placehold.it/150x150">{{ facility['facility'] }}</a>
               </div>
             </div>
           </div>

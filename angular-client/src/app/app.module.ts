@@ -53,7 +53,7 @@ var appRoutes: Routes = [
         component: ReservationsnavmenuComponent
     },
     {
-        path: 'reservation',
+        path: 'reservation/:facilityId',
         component: ReservationnavemenuComponent
     }
 ]
@@ -75,7 +75,9 @@ var appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   //services go inside providers
-  providers: [APIMiddleWare],
+  providers: [
+    APIMiddleWare
+  ],
   //boostrap is the main/driver appcomponent to load
   bootstrap: [AppComponent]
 })

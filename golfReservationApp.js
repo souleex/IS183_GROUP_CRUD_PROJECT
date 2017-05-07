@@ -48,6 +48,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //get path to the client application's splash page
+//note this does not get created unless you run
+//"ng build" on the angular-cli app
 app.use(express.static(path.join(__dirname, 'client')));
 
 //call the reservationRouter router

@@ -9,7 +9,7 @@ gulp.task('default', function() {
         //what script to run
         script: 'golfReservationApp.js',
         //what file-types to "listen" for
-        ext: 'js html',
+        ext: 'js',
         env: {
             PORT: 8100
         },
