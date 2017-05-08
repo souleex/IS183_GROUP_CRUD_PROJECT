@@ -1,0 +1,26 @@
+<a [routerLink]="['/']"><button class="btn btn-default">Log Out</button></a>
+<!--image gallery obtained from: http://bootsnipp.com/snippets/x8raN along with corresponding css-->
+<div class="container">
+  <div class="row">
+    <h2>Please Pick a Golf Facility</h2>
+  </div>
+  <div class='row'>
+    <div class='col-md-8'>
+      <div class="carousel slide media-carousel" id="media">
+        <div class="carousel-inner">
+          <div class="item  active">
+            <div class="row">
+            <!--make a loop to dynamically display available facilities-->
+              <div class="col-md-4" *ngFor="let facility of facilities; let i = index">
+                <a class="thumbnail" [routerLink]="[facility['_id']]" style="text-align:center;">{{ facility['facility'] }}<img alt="" src="{{facility.imageURL}}">Entrance Fee: {{ facility['facilityPrice'] | currency:'USD':true }}</a>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+        <a data-slide="next" href="#media" class="right carousel-control">›</a-->
+      </div>                          
+    </div>
+  </div>
+</div>

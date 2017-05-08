@@ -1,0 +1,18 @@
+<p>
+  login works!
+</p>
+  <!--This sign up form was obtained from: https://codepen.io/ace-subido/pen/Cuiep along with the css for it (check login.component.css)-->
+  <div class="wrapper">
+    <form class="form-signin">       
+      <h2 class="form-signin-heading">Please login</h2>
+      <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" />
+      <input type="password" class="form-control" name="password" placeholder="Password" required=""/>      
+      <label class="checkbox">
+        <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+      </label>
+      <!--you could use old school <a></a> tag w/href, but angular method is to use [routerLink]="['path']" -->
+      <a [routerLink]="['/facilities']"><button class="btn btn-default" type="submit" style="width:100%">Login</button></a>
+      <a [routerLink]="['/register']"><button class="btn btn-default" type="submit" style="width:100%">Register</button></a>
+
+    </form>
+  </div>
