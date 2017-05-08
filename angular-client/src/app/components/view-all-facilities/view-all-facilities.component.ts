@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { APIMiddleWare } from '../../services/api-middleware.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-mainnavmenu',
-  templateUrl: './mainnavmenu.component.html',
-  styleUrls: ['./mainnavmenu.component.css']
+  selector: 'app-ViewAllFacilities',
+  templateUrl: './view-all-facilities.component.html',
+  styleUrls: ['./view-all-facilities.component.css']
 })
-export class MainnavmenuComponent implements OnInit {
+export class ViewAllFacilitiesComponent implements OnInit {
    
   facilities:Array<Object>;
   //inject the service into the constructor

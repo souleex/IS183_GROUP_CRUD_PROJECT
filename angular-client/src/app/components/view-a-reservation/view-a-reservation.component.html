@@ -1,0 +1,45 @@
+<a [routerLink]="[facilityId]"><button class="btn btn-default">Back to Reservations</button></a>
+
+<div id="products" class="row list-group">
+    <div class="item  col-xs-4 col-lg-4" style="margin-left: 35%;">
+        <div class="thumbnail">
+            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+            <div class="caption">
+                <h4 class="group inner list-group-item-heading">
+                    New Reservation
+                </h4>
+                <form class="form-group" [formGroup]="newReservationForm" (ngSubmit)="submitNewReservation($event)">
+                    <input required  type="text" class="form-control" id="name" formControlName="customerName">
+                    <input required type="datetime-local" class="form-control" id="date" formControlName="date">
+                    <label>Walk or Ride?</label>
+                    <select required class="form-control" id="walk-ride"  formControlName="walkRide" value="Walk or Ride?">
+                        <option>Walk</option>
+                        <option>Ride</option>
+                    </select>
+                    
+                    <ul class="list-group" style="float:left">
+                        <div id="equipment-price-input-field-block" style="display: flex;">
+                            <div id="equipment-input-field-block" style="width:100%">
+                                <label style="display:flex;">Equipment(s):</label>
+                                <select class="form-control" id="equipmentName" formControlName="equipmentName">
+                                    <option>Golf Cart</option>
+                                    <option>Golf Club</option>
+                                    <option>Golf Balls (Set of 10)</option>
+                                </select>
+                            </div>
+                            <div id="price-input-field-block" style="width:25%">
+                                <label style="display:flex;">Price:</label>
+                                <input type="text" class="form-control" formControlName="price" readonly="readonly">
+                            </div>
+                        </div>
+                    </ul>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <button class="btn btn-success" type="submit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

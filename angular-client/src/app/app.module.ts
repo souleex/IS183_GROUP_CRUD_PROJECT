@@ -17,15 +17,15 @@ import { AppComponent } from './app.component';
 /**
  * all custom components go here
  **/
-//MainnavmenuComponent should allow a user to select available
+//ViewAllFacilitiesComponent should allow a user to select available
 //facilities
-import { MainnavmenuComponent } from './components/mainnavmenu/mainnavmenu.component';
-//ReservationsnavmenuComponent should display all reservations
+import { ViewAllFacilitiesComponent } from './components/view-all-facilities/view-all-facilities.component';
+//ViewAllReservationsComponent should display all reservations
 //at a facility
-import { ReservationsnavmenuComponent } from './components/reservationsnavmenu/reservationsnavmenu.component';
-//ReservationnavemenuComponent should allow a user to edit or add a
+import { ViewAllReservationsComponent } from './components/view-all-reservations/view-all-reservations.component';
+//ViewAReservationComponent should allow a user to edit or add a
 //new reservation
-import { ReservationnavemenuComponent } from './components/reservationnavemenu/reservationnavemenu.component';
+import { ViewAReservationComponent } from './components/view-a-reservation/view-a-reservation.component';
 //what the user sees as the splash page
 import { LoginComponent } from './components/login/login.component';
 
@@ -49,15 +49,15 @@ var appRoutes: Routes = [
     },
     {
         path: 'facilities',
-        component: MainnavmenuComponent
+        component: ViewAllFacilitiesComponent
     },
     {
         path: 'facilities/:facilityId',
-        component: ReservationsnavmenuComponent
+        component: ViewAllReservationsComponent
     },
     {
         path: 'addreservation/:facilityId',
-        component: ReservationnavemenuComponent
+        component: ViewAReservationComponent
     }
 ]
 
@@ -66,9 +66,9 @@ var appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MainnavmenuComponent,
-    ReservationsnavmenuComponent,
-    ReservationnavemenuComponent
+    ViewAllFacilitiesComponent,
+    ViewAllReservationsComponent,
+    ViewAReservationComponent
   ],
   //modules go here
   imports: [

@@ -1,9 +1,8 @@
 <a [routerLink]="['/facilities']"><button class="btn btn-default">Back to Facilties</button></a>
-
 <!--list view obtained from: http://bootsnipp.com/snippets/db39 along with corresponding css and js-->
 <div class="container">
     <div class="well well-sm">
-        <strong>Category Title</strong>
+        <strong>Change View</strong>
         <div class="btn-group">
             <button id="list" class="btn btn-default btn-sm" (click)="reservationsListView($event)">
                 <span class="glyphicon glyphicon-th-list">
@@ -38,12 +37,10 @@
                     <label style="display:flex;">Equipment(s):</label>
                     <ul class="list-group" style="display:inline-block">
                         <li class="list-group-item">
+                            Equipment Name: Price
                         </li>
                     </ul>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead"></p>
-                        </div>
                         <div class="col-xs-12 col-md-6">
                             <button class="btn btn-success" (click)="addNewReservation($event)">Add</button>
                         </div>
@@ -56,15 +53,16 @@
                 <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
                 <div class="caption">
                     <h4 class="group inner list-group-item-heading">
-                        Reservation #{{reservation['_id']}}</h4>
+                        Reservation #{{reservation['_id']}}
+                    </h4>
                     <p class="group inner list-group-item-text">
                         Name: {{ reservation['customerName'] }}
                     </p>
                     <p class="group inner list-group-item-text">
-                        Date: {{ reservation['date'] }}
+                        Date: {{ reservation['date'] | date:'fullDate' }}
                     </p>
                     <p class="group inner list-group-item-text">
-                        Time: {{ reservation['time'] }}
+                        Time: {{ reservation['date'] | date:'shortTime' }}
                     </p>
                     <p class="group inner list-group-item-text">
                         Walk or Ride: {{ reservation['walkRide'] }}
@@ -72,13 +70,10 @@
                     <label style="display:flex;">Equipment(s):</label>
                     <ul class="list-group" style="display:inline-block">
                         <li class="list-group-item" *ngFor="let equipment of reservation['equipments']; let j = index">
-                            {{ equipment['equipmentName'] }} : {{ equipment['price'] }}
+                            {{ equipment['equipmentName'] }}: {{ equipment['price']  | currency:'USD':true }}
                         </li>
                     </ul>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead"></p>
-                        </div>
                         <div class="col-xs-12 col-md-6">
                             <button class="btn btn-success">Edit</button>
                             <!--need to figure out how onclick events work-->
@@ -113,14 +108,12 @@
                     <label style="display:flex;">Equipment(s):</label>
                     <ul class="list-group" style="display:inline-block">
                         <li class="list-group-item">
+                            Equipment Name: Price
                         </li>
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <p class="lead"></p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <button class="btn btn-success">Add</button>
+                            <button class="btn btn-success" (click)="addNewReservation($event)">Add</button>
                         </div>
                     </div>
                 </div>
@@ -150,13 +143,10 @@
                     <label style="display:flex;">Equipment(s):</label>
                     <ul class="list-group" style="display:inline-block">
                         <li class="list-group-item" *ngFor="let equipment of reservation['equipments']; let j = index">
-                            {{ equipment['equipmentName'] }} : {{ equipment['price'] }}
+                            {{ equipment['equipmentName'] }}: {{ equipment['price']  | currency:'USD':true }}
                         </li>
                     </ul>
                     <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead"></p>
-                        </div>
                         <div class="col-xs-12 col-md-6">
                             <button class="btn btn-success">Edit</button>
                             <!--need to figure out how onclick events work-->

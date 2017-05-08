@@ -4,11 +4,11 @@ import { APIMiddleWare } from '../../services/api-middleware.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reservationsnavmenu',
-  templateUrl: './reservationsnavmenu.component.html',
-  styleUrls: ['./reservationsnavmenu.component.css']
+  selector: 'app-ViewAllReservations',
+  templateUrl: './view-all-reservations.component.html',
+  styleUrls: ['./view-all-reservations.component.css']
 })
-export class ReservationsnavmenuComponent implements OnInit {
+export class ViewAllReservationsComponent implements OnInit {
 
     reservations:Array<Object>;
     facilityId: String;

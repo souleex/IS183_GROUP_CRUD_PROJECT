@@ -6,31 +6,32 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-reservationnavemenu',
-  templateUrl: './reservationnavemenu.component.html',
-  styleUrls: ['./reservationnavemenu.component.css']
+  selector: 'app-ViewAReservation',
+  templateUrl: './view-a-reservation.component.html',
+  styleUrls: ['./view-a-reservation.component.css']
 })
-export class ReservationnavemenuComponent implements OnInit {
+export class ViewAReservationComponent implements OnInit {
     //reservation:Array<Object>;
     facilityId: String;
     
     equipmentArray = [{
-        equipmentName : '',
+        equipmentName : String,
         price: ''
     }]
     
+    equipmentPrice: String;
     //make the form object
     public newReservationForm = new FormGroup({
-        customerName: new FormControl("name"),
-        date: new FormControl("date"),
-        time: new FormControl("time"),
+        //not sure exactly how this form thing works, but
+        //it looks like each key is a new formcontrol with a
+        //default value
+        customerName: new FormControl("Your Name"),
+        date: new FormControl(new Date().toLocaleString()),
         walkRide: new FormControl("walkRide"),
         equipmentName: new FormControl("equipmentName"),
-        price : new FormControl("price"),
+        price : new FormControl(5.5),
         equipments: new FormControl(this.equipmentArray)
     });
-    
-    
     
     constructor(
         private apiMiddleWare: APIMiddleWare,
@@ -54,7 +55,7 @@ export class ReservationnavemenuComponent implements OnInit {
         //console.log(this.newReservationForm.value);
         this.equipmentArray[0]['equipmentName'] = this.newReservationForm.value['equipmentName'];
         this.equipmentArray[0]['price'] = this.newReservationForm.value['price'];
-        //console.log(this.newReservationForm.value);
+        console.log("Information that will be saved:\n"+this.newReservationForm.value);
         this.apiMiddleWare.addNewReservation(this.facilityId.substring(this.facilityId.lastIndexOf('/')+1), this.newReservationForm.value);
      }
      
