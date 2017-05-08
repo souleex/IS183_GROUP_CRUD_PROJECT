@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { GetAllFacilitiesService } from './get-all-facilities.service';
+import { APIMiddleWare } from './api-middleware.service';
 
-describe('GetAllFacilitiesService', () => {
+describe('APIMiddleWare', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [GetAllFacilitiesService]
+      providers: [APIMiddleWare]
     });
   });
 
-  it('should ...', inject([GetAllFacilitiesService], (service: GetAllFacilitiesService) => {
+  it('should ...', inject([APIMiddleWare], (service: APIMiddleWare) => {
     expect(service).toBeTruthy();
   }));
 });

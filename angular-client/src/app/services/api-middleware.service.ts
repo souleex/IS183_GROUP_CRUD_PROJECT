@@ -21,17 +21,22 @@ export class APIMiddleWare {
     getFacilities(): Promise<Array<Object>> {
         return this.http.get('http://localhost:8100/api/courses').toPromise().then((resp) => {
             let facilities = resp.json();
-            console.log('facilities: ',facilities);
+            console.log('api-middleware.service.ts:\nfacilities: ',facilities);
             return facilities;
         });
     }
 
     //get all reservations from a facility
     getReservations(facilityId): Promise<Array<Object>> {
-        return this.http.get('http://localhost:8100/api/courses/'+facilityId).toPromise().then((resp) => {
+        return this.http.get('http://localhost:8100/api/courses/'+facilityId).toPromise()
+        .then(function successCallback(resp) {
             let reservations = resp.json();
-            console.log('reservations: ', reservations['reservations']);
+            console.log('api-middleware.service.ts:\nHit good entry-point\nreservations: ', reservations['reservations']);
             return reservations['reservations'];
+        }
+        ,function errorCallback(resp){
+            console.log("api-middleware.service.ts:\nHit bad entry-point");
+            return false;
         });
     }
     
@@ -43,10 +48,10 @@ export class APIMiddleWare {
             //this part should be removed from the middleware and into
             //the componnent, but I'm not sure how
             if (resp['_body'] == 1 ) {
-                console.log("saved new reservation");
+                console.log("api-middleware.service.ts:\nsaved new reservation");
                 this.router.navigate(['/facilities/'+facilityId]);
             }else{
-                console.log("could not save new reservation");
+                console.log("api-middleware.service.ts:\ncould not save new reservation");
             }
         });
     }
@@ -60,10 +65,10 @@ export class APIMiddleWare {
             //this part should be removed from the middleware and into
             //the componnent, but I'm not sure how
             if (deleted) {
-                console.log("deleted reservation");
+                console.log("api-middleware.service.ts:\nDeleted reservation and refreshing the current page for the calling component");
                 window.location.reload();
             }else{
-                console.log("could not delete reservation");
+                console.log("api-middleware.service.ts:\nCould not delete reservation");
             }
         });
     };

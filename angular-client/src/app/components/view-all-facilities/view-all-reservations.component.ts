@@ -22,17 +22,13 @@ export class ViewAllReservationsComponent implements OnInit {
 
     ngOnInit() {
         this.useGridView = true;
+        //console.log("Current Location: " + window.location.pathname);
         this.facilityId = window.location.pathname;
+        //console.log("Last index of \\ occurs at: " + this.facilityId.lastIndexOf('/'));
+        //console.log("facilityId should be: " + this.facilityId.substring(this.facilityId.lastIndexOf('/')+1));
         this.facilityId = this.facilityId.substring(this.facilityId.lastIndexOf('/')+1);
         this.getReservations().then((resp) => {
             this.reservations = resp;
-            console.log('view-all-reservations.component.ts:\nAPIMiddleWare Response: ', resp);
-            if (!resp) {
-                console.log('view-all-reservations.component.ts:\nRerouting user from bad entry-point: ');
-                this.router.navigate(['/facilities/']);
-            }else{
-                console.log('view-all-reservations.component.ts:\nAPIMiddleWare found valid object(s)');
-            }
         });
     }
     /**
@@ -43,25 +39,29 @@ export class ViewAllReservationsComponent implements OnInit {
     }
     
     deleteReservation(event, reservationId) {
-        console.log("view-all-reservations.component.ts:\nSomeone wanted to delete reservation: " + reservationId);
+        console.log("Someone wanted to delete reservation: " + reservationId);
         this.apiMiddleWare.deleteReservation(this.facilityId, reservationId);
+        //console.log("successfully deleted reservation and refreshing the page: " + resp);
+        //location.reload();
+        //console.log(this.facilityId);
+        //this.router.navigate(['/facilities/'+this.facilityId]);
     }
     
     /**
      * Functions for interaction
      **/
     addNewReservation(event) {
-        console.log("view-all-reservations.component.ts:\nSomeone wants to add a new reservation");
+        console.log("Someone wants to add a new reservation");
         this.router.navigate(['/addreservation/'+this.facilityId]);
     }
     
     reservationsListView(event) {
-        console.log("view-all-reservations.component.ts:\nChanging reservations to a list view");
+        console.log("Changing reservations to a list view");
         this.useGridView = false;
     }
     
     reservationsGridView(event) {
-        console.log("view-all-reservations.component.ts:\nChanging reservations to a grid view");
+        console.log("Changing reservations to a grid view");
         this.useGridView = true;
     }
 }

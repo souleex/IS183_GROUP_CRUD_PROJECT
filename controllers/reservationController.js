@@ -232,7 +232,7 @@
                         }
                     });
                     /**/
-                    console.log("Successfully removed the facility");
+                    console.log("Successfully removed the reservation");
                     //res.json(req.golfcourse);
                 }
             });

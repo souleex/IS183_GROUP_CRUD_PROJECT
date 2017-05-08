@@ -40,22 +40,34 @@ export class ViewAReservationComponent implements OnInit {
 
     ngOnInit() {
         this.facilityId = window.location.pathname;
-        //console.log("Last index of \\ occurs at: " + this.facilityId.lastIndexOf('/'));
-        //console.log("facilityId should be: " + this.facilityId.substring(this.facilityId.lastIndexOf('/')+1));
-        this.facilityId = '/facilities/'+this.facilityId.substring(this.facilityId.lastIndexOf('/')+1);
+        this.facilityId = '/facilities/'+ this.facilityId.substring(this.facilityId.lastIndexOf('/')+1);
+        
+        this.getReservations().then((resp) => {
+            console.log('view-a-reservations.component.ts:\nAPIMiddleWare Response: ', resp);
+            if (!resp) {
+                console.log('view-a-reservations.component.ts:\nRerouting user from bad entry-point: ');
+                this.router.navigate(['/facilities/']);
+            }else{
+                console.log('view-a-reservations.component.ts:\nAPIMiddleWare found valid object(s)');
+            }
+        });
     }
     
     /**
      * API Middleware functions
      **/
+    getReservations() {
+        return this.apiMiddleWare.getReservations(window.location.pathname.substring(window.location.pathname.lastIndexOf('/')+1));
+    }
+    
      submitNewReservation(even) {
-        console.log("User wants to submit reservation");
+        console.log("view-a-reservations.component.ts:\nUser wants to submit reservation");
         //console.log(this.demo[0]['equipmentName']);
         //console.log(this.newReservationForm.value['equipmentName']);
         //console.log(this.newReservationForm.value);
         this.equipmentArray[0]['equipmentName'] = this.newReservationForm.value['equipmentName'];
         this.equipmentArray[0]['price'] = this.newReservationForm.value['price'];
-        console.log("Information that will be saved:\n"+this.newReservationForm.value);
+        console.log("view-a-reservations.component.ts:\nInformation that will be saved:\n"+this.newReservationForm.value);
         this.apiMiddleWare.addNewReservation(this.facilityId.substring(this.facilityId.lastIndexOf('/')+1), this.newReservationForm.value);
      }
      
