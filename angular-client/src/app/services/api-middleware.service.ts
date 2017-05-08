@@ -71,6 +71,5 @@ export class APIMiddleWare {
                 console.log("api-middleware.service.ts:\nCould not delete reservation");
             }
         });
-    };
-
+    }
 }
