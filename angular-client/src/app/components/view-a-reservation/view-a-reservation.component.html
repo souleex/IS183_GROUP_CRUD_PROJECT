@@ -12,30 +12,37 @@
                     <input required  type="text" class="form-control" id="name" formControlName="customerName">
                     <input required type="datetime-local" class="form-control" id="date" formControlName="date">
                     <label>Walk or Ride?</label>
-                    <select required class="form-control" id="walk-ride"  formControlName="walkRide" value="Walk or Ride?">
+                    <select required class="form-control" id="walk-ride"  formControlName="walkRide">
                         <option>Walk</option>
                         <option>Ride</option>
                     </select>
                     
-                    <ul class="list-group" style="float:left">
-                        <div id="equipment-price-input-field-block" style="display: flex;">
-                            <div id="equipment-input-field-block" style="width:100%">
-                                <label style="display:flex;">Equipment(s):</label>
-                                <select class="form-control" id="equipmentName" formControlName="equipmentName">
-                                    <option>Golf Cart</option>
-                                    <option>Golf Club</option>
-                                    <option>Golf Balls (Set of 10)</option>
-                                </select>
-                            </div>
-                            <div id="price-input-field-block" style="width:25%">
-                                <label style="display:flex;">Price:</label>
-                                <input type="text" class="form-control" formControlName="price">
+                    <ul class="list-group">
+                        <div id="equipment-price-input-field-block">
+                            <div formArrayName="equipments">
+                                <div *ngFor="let equipmentBlock of newReservationForm.controls.equipments.controls; let i=index">
+                                    <div>
+                                        <label>Equipment  {{ i + 1 }}</label>
+                                        <span *ngIf="newReservationForm.controls.equipments.controls.length > 1" (click)="removeNewEquipmentInput(i)">(<a>Remove</a>)</span>
+                                    </div>
+                                    
+                                    <div [formGroupName]="i">
+                                        <div>
+                                            <select class="form-control" id="equipment" formControlName="equipment">
+                                                <option *ngFor="let equipmentSold of equipmentsSold; let i = index" value="{{equipmentSold['equipmentId']}}">{{ equipmentSold['equipmentName'] }} | Price: {{ equipmentSold['price']  | currency:'USD':true }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span (click)="addNewEquipmentInput()">(<a>Add More</a>)</span>
+                                </div>
                             </div>
                         </div>
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-success" type="submit" >Submit</button><!--[disabled]="!newReservationForm.valid">Submit</button-->
                         </div>
                     </div>
                 </form>
