@@ -19,10 +19,15 @@ export class APIMiddleWare {
 
     //function to get all facilities from the db
     getFacilities(): Promise<Array<Object>> {
-        return this.http.get('http://localhost:8100/api/courses').toPromise().then((resp) => {
+        return this.http.get('http://localhost:8100/api/courses').toPromise()
+        .then(function successCallback(resp) {
             let facilities = resp.json();
             console.log('api-middleware.service.ts:\nfacilities: ',facilities);
             return facilities;
+        }
+        ,function errorCallback(resp){
+            console.log("api-middleware.service.ts:\nHit bad entry-point");
+            return false;
         });
     }
 

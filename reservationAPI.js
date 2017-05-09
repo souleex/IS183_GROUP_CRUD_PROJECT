@@ -1,7 +1,8 @@
 db.golfcourses.insert([
     {
-        facility: 'Facility 001',
         _id: new ObjectId(),
+        facility: 'Airways Municipal Golf Course',
+        facilityImgURL:'https://image.ibb.co/kV2iqk/zz_JYp_Lm_1.jpg',
         facilityPrice: 8.50,
         reservations: [{
             _id: new ObjectId(),
@@ -16,8 +17,9 @@ db.golfcourses.insert([
         }]
     },
     {
-        facility: 'Facility 002',
         _id: new ObjectId(),
+        facility: 'Sunnyside Country Club',
+        facilityImgURL:'https://image.ibb.co/eMMMbQ/9VA4D7Z.png',
         facilityPrice: 7.00,
         reservations: [{
             _id: new ObjectId(),
@@ -32,8 +34,9 @@ db.golfcourses.insert([
         }]
     },
     {
-        facility: 'Facility 003',
         _id: new ObjectId(),
+        facility: "Hank's Swank Par 3 Golf Course",
+        facilityImgURL:'https://image.ibb.co/m3RMbQ/MrzayDo.png',
         facilityPrice: 10.00,
         reservations: [{
             _id: new ObjectId(),

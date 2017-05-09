@@ -10,6 +10,9 @@ var reservationModel = new Schema({
     facility: {
         type: String
     },
+    facilityImgURL: {
+        type: String
+    },
     facilityPrice: {
         type: Number
     },

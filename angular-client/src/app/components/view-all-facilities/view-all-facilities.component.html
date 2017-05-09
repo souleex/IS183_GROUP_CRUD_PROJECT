@@ -1,6 +1,6 @@
 <a [routerLink]="['/']"><button class="btn btn-default">Log Out</button></a>
 <!--image gallery obtained from: http://bootsnipp.com/snippets/x8raN along with corresponding css-->
-<div class="container">
+<div class="container" *ngIf="facilities">
   <div class="row">
     <h2>Please Pick a Golf Facility</h2>
   </div>
@@ -12,7 +12,7 @@
             <div class="row">
             <!--make a loop to dynamically display available facilities-->
               <div class="col-md-4" *ngFor="let facility of facilities; let i = index">
-                <a class="thumbnail" [routerLink]="[facility['_id']]" style="text-align:center;">{{ facility['facility'] }}<img alt="" src="http://turnberryisleclub.com/wp-content/uploads/2013/07/TIR-Golf-Courses-Misc-030.jpg">Entrance Fee: {{ facility['facilityPrice'] | currency:'USD':true }}</a>
+                <a class="thumbnail" [routerLink]="[facility['_id']]" style="text-align:center;">{{ facility['facility'] }}<img alt="" src="{{facility.facilityImgURL}}">Entrance Fee: {{ facility['facilityPrice'] | currency:'USD':true }}</a>
               </div>
             </div>
           </div>
@@ -23,3 +23,7 @@
     </div>
   </div>
 </div>
+
+<!--div class="container" *ngIf="!facilities">
+    <label class="no-facilities-warning" style="font-size: 5em; color:red; text-align: center;">NO FACILITIES FOUND! PLEASE CONTACT AN ADMINISTRATOR FOR HELP.</label>
+</div-->

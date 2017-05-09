@@ -21,6 +21,11 @@ export class ViewAllFacilitiesComponent implements OnInit {
     this.getFacilities().then((resp) => {
         //console.log(resp[0]['facility']);
         this.facilities = resp;
+        if (!resp) {
+            console.log("view-all-facilities.component:\nDid not find any facilities");
+        }else{
+            console.log("view-all-facilities.component:\nFound facilities");
+        }
     });
   }
   
