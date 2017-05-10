@@ -43,13 +43,15 @@ export class ViewAllReservationsComponent implements OnInit {
     }
 
     deleteReservation(event, reservationId) {
-        this.apiMiddleWare.deleteReservation(this.facilityId, reservationId)
-        .then( (resp) => {
-            console.log('view-all-reservations.component.ts:\nDeletion Response:', resp);
-            if ( resp ) {
-                window.location.reload();
-            }
-        });
+        if ( confirm("Are you sure you want to delete this reservation?") ) {
+            this.apiMiddleWare.deleteReservation(this.facilityId, reservationId)
+            .then( (resp) => {
+                console.log('view-all-reservations.component.ts:\nDeletion Response:', resp);
+                if ( resp ) {
+                    window.location.reload();
+                }
+            });
+        }
     }
     
     /**

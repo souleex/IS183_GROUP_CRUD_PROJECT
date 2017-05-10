@@ -23,9 +23,11 @@ mongoose.connection.on('connected', () => {
     console.log("\nmongoose was able to establish a database connection to: " + "\"" + dbURI + "\"");
 });
 
-//spit out message if db connection error
+//spit out message if db connection error and
+//try to connect to the db again
 mongoose.connection.on('error', (err) => {
     console.log("\nDatabase connection error\n" + err);
+    db = mongoose.connect('mongodb://localhost/'+dbURI);
 });
 
 var Reservation = require('./models/reservationModel');
