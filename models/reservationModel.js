@@ -27,6 +27,9 @@ var reservationModel = new Schema({
             type: String
         },
         equipments: [{
+            equipmentId: {
+                type: Number
+            },
             equipmentName: {
                 type: String
             },

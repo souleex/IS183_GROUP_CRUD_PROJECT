@@ -55,6 +55,10 @@ var appRoutes: Routes = [
     {
         path: 'addreservation/:facilityId',
         component: ViewAReservationComponent
+    },
+    {
+        path: 'editreservation/:facilityId/:reservationId',
+        component: ViewAReservationComponent
     }
 ]
 

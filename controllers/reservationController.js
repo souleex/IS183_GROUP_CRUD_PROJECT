@@ -41,12 +41,11 @@
             try {
                 var lastElement = req.golfcourse.reservations.length;
                 req.golfcourse.reservations.splice(lastElement,0, req.body);
-                
                 req.golfcourse.save(function(err) {
                     if (err) {
                         res.status(500).send(err);
                     }else{
-                        res.json(1);
+                        res.json(req.golfcourse);
                     }
                 });
             }catch(error){
@@ -132,6 +131,7 @@
             }
         } 
         
+        //this is a put method
         var updateEntireReservation = function(req, res) {
             //loop through a facility's reservations until a user id matches the requested id
             try {
@@ -164,6 +164,7 @@
             }
         }
         
+        //this is a patch method
         var updateReservation = function(req, res) {
             //loop through a facility's reservations until a user id matches the requested id
             try {
@@ -228,7 +229,7 @@
                         if (err) {
                             res.status(500).send(err);
                         }else{
-                            res.json(true);
+                            res.json(tmpReservation);
                         }
                     });
                     /**/

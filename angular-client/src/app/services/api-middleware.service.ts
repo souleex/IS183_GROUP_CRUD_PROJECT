@@ -11,15 +11,14 @@ import 'rxjs';
 
 @Injectable()
 export class APIMiddleWare {
-
-    constructor(
-        private http: Http,
-        private router: Router
-    ) { }
+    private urlString: string;
+    constructor(private http: Http, private router: Router) {
+        this.urlString = 'http://localhost:8100/api/courses/';
+    }
 
     //function to get all facilities from the db
     getFacilities(): Promise<Array<Object>> {
-        return this.http.get('http://localhost:8100/api/courses').toPromise()
+    return this.http.get(this.urlString).toPromise()
         .then(function successCallback(resp) {
             let facilities = resp.json();
             console.log('api-middleware.service.ts:\nfacilities: ',facilities);
@@ -33,7 +32,7 @@ export class APIMiddleWare {
 
     //get all reservations from a facility
     getReservations(facilityId): Promise<Array<Object>> {
-        return this.http.get('http://localhost:8100/api/courses/'+facilityId).toPromise()
+        return this.http.get(this.urlString+facilityId).toPromise()
         .then(function successCallback(resp) {
             let reservations = resp.json();
             console.log('api-middleware.service.ts:\nHit good entry-point\nreservations: ', reservations['reservations']);
@@ -45,36 +44,57 @@ export class APIMiddleWare {
         });
     }
     
+    //grab the reservation information
+    getReservation(facilityId, reservationId): Promise<Array<Object>> {
+        return this.http.get(this.urlString+facilityId+'/'+reservationId).toPromise()
+        .then(function successCallback(resp) {
+            let reservation = resp.json();
+            console.log('api-middleware.service.ts:\nHit good entry-point\nreservation: ', reservation);
+            return reservation;
+        }
+        ,function errorCallback(resp) {
+            console.log("api-middleware.service.ts:\nHit bad entry-point");
+            return false;
+        });
+    }
+    
     //add a new reservation into a facility
-    addNewReservation(facilityId, dataObj){
-        this.http.post('http://localhost:8100/api/courses/'+facilityId, dataObj).toPromise().then((resp) => {
-            console.log(resp);
-            
-            //this part should be removed from the middleware and into
-            //the componnent, but I'm not sure how
-            if (resp['_body'] == 1 ) {
-                console.log("api-middleware.service.ts:\nsaved new reservation");
-                this.router.navigate(['/facilities/'+facilityId]);
-            }else{
-                console.log("api-middleware.service.ts:\ncould not save new reservation");
-            }
+    addNewReservation(facilityId, dataObj) {
+        return this.http.post(this.urlString+facilityId, dataObj).toPromise()
+        .then(function successCallback(resp) {
+            console.log("api-middleware.service.ts:\nSuccessfully Added Reservation: ", resp);
+            return true;
+        }
+        ,function errorCallback(resp) {
+            console.log("api-middleware.service.ts:\nCould Not Add Reservation: ", resp);
+            return false;
+        });
+    }
+    
+    //edit a reservation at a facility
+    editReservation(facilityId, reservationId, dataObj) {
+        return this.http.patch(this.urlString+facilityId + '/' + reservationId, dataObj).toPromise()
+        .then(function successCallback(resp) {
+            console.log("api-middleware.service.ts:\nSuccessfully Updateds Reservation: ", resp);
+            return true;
+        }
+        ,function errorCallback(resp) {
+            console.log("api-middleware.service.ts:\nCould Not Update Reservation: ", resp);
+            return false;
         });
     }
     
     //delete a reservation from a facility
     deleteReservation(facilityId, reservationId) {
-        this.http.delete('http://localhost:8100/api/courses/'+facilityId+'/'+reservationId).toPromise().then((resp) => {
+        return this.http.delete(this.urlString+facilityId+'/'+reservationId).toPromise()
+        .then(function successCallback(resp) {
             let deleted = resp.json();
-            console.log(deleted);
-            
-            //this part should be removed from the middleware and into
-            //the componnent, but I'm not sure how
-            if (deleted) {
-                console.log("api-middleware.service.ts:\nDeleted reservation and refreshing the current page for the calling component");
-                window.location.reload();
-            }else{
-                console.log("api-middleware.service.ts:\nCould not delete reservation");
-            }
+            console.log("api-middleware.service.ts:\nSuccessfully Deleted: ", deleted);
+            return true;
+        }
+        ,function errorCallback(resp) {
+            console.log("api-middleware.service.ts:\nCould Not Delete");
+            return false;
         });
     }
 }

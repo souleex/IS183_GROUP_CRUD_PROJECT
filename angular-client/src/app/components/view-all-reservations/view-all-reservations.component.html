@@ -75,7 +75,7 @@
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <!--button class="btn btn-success">Edit</button-->
+                            <button class="btn btn-success" (click)="editReservation($event, reservation['_id'])">Edit</button>
                             <!--need to figure out how onclick events work-->
                             <button class="btn btn-success" (click)="deleteReservation($event, reservation['_id'])">Delete</button>
                         </div>
@@ -148,7 +148,7 @@
                     </ul>
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <!--button class="btn btn-success">Edit</button-->
+                            <button class="btn btn-success">Edit</button>
                             <!--need to figure out how onclick events work-->
                             <button class="btn btn-success" (click)="deleteReservation($event, reservation['_id'])">Delete</button>
                         </div>

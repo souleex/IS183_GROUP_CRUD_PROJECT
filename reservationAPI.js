@@ -11,6 +11,7 @@ db.golfcourses.insert([
             walkRide: 'Walk',
             equipments: [{
                 _id: new ObjectId(),
+                equipmentId: 999,
                 equipmentName: 'equipment a54',
                 price: 7.00
             }]
@@ -28,6 +29,7 @@ db.golfcourses.insert([
             walkRide: 'Ride',
             equipments: [{
             _id: new ObjectId(),
+                equipmentId: 998,
                 equipmentName: 'equipment b98',
                 price: 5.00
             }]
@@ -45,6 +47,7 @@ db.golfcourses.insert([
             walkRide: 'Ride',
             equipments: [{
             _id: new ObjectId(),
+                equipmentId: 997,
                 equipmentName: 'equipment c65',
                 price: 6.25
             }]

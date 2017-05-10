@@ -41,10 +41,15 @@ export class ViewAllReservationsComponent implements OnInit {
     getReservations() {
         return this.apiMiddleWare.getReservations(this.facilityId);
     }
-    
+
     deleteReservation(event, reservationId) {
-        console.log("view-all-reservations.component.ts:\nSomeone wanted to delete reservation: " + reservationId);
-        this.apiMiddleWare.deleteReservation(this.facilityId, reservationId);
+        this.apiMiddleWare.deleteReservation(this.facilityId, reservationId)
+        .then( (resp) => {
+            console.log('view-all-reservations.component.ts:\nDeletion Response:', resp);
+            if ( resp ) {
+                window.location.reload();
+            }
+        });
     }
     
     /**
@@ -53,6 +58,11 @@ export class ViewAllReservationsComponent implements OnInit {
     addNewReservation(event) {
         console.log("view-all-reservations.component.ts:\nSomeone wants to add a new reservation");
         this.router.navigate(['/addreservation/'+this.facilityId]);
+    }
+    
+    editReservation(event, reservationId) {
+        console.log("view-all-reservations.component.ts:\nSomeone wants to edit an existing reservation");
+        this.router.navigate(['/editreservation/'+this.facilityId+'/'+reservationId]);
     }
     
     reservationsListView(event) {
