@@ -116,7 +116,6 @@ export class ViewAReservationComponent implements OnInit {
             this.getReservation(this.facilityId, this.reservationId)
             .then((resp) => {
                 this.reservation = resp;
-                console.log('view-a-reservations.component.ts:\nAPIMiddleWare Response: ', this.reservation['date'].substring(0, this.getStringPosition(this.reservation['date'], ':', 2)));
                 
                 //now assign them to the new form here
                 //we do this here since the http get request is async (happens after initial forms load)
@@ -266,8 +265,9 @@ export class ViewAReservationComponent implements OnInit {
        return myString.split(subString, index).join(subString).length;
     }
     
+    //returns a human readable date in the format of DD/MM/YYYY SS
     dateFormat(myDate) {
-        console.log("Date In: ", myDate);
+        //console.log("Date In: ", myDate);
         let dateOut = new Date(myDate.substring(0, this.getStringPosition(myDate, ':', 2)));
         
         let dateOptions = {
