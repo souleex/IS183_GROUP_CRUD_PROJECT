@@ -24,7 +24,14 @@ export class ViewAllReservationsComponent implements OnInit {
         this.useGridView = true;
         this.facilityId = window.location.pathname;
         this.facilityId = this.facilityId.substring(this.facilityId.lastIndexOf('/')+1);
-        this.getReservations().then((resp) => {
+        this.getReservations();
+    }
+    /**
+     * API Middleware Functions
+     **/
+    getReservations() {
+        return this.apiMiddleWare.getReservations(this.facilityId)
+        .then((resp) => {
             this.reservations = resp;
             console.log('view-all-reservations.component.ts:\nAPIMiddleWare Response: ', resp);
             if (!resp) {
@@ -35,22 +42,21 @@ export class ViewAllReservationsComponent implements OnInit {
             }
         });
     }
-    /**
-     * API Middleware Functions
-     **/
-    getReservations() {
-        return this.apiMiddleWare.getReservations(this.facilityId);
-    }
 
     deleteReservation(event, reservationId) {
         if ( confirm("Are you sure you want to delete this reservation?") ) {
+            
             this.apiMiddleWare.deleteReservation(this.facilityId, reservationId)
             .then( (resp) => {
-                console.log('view-all-reservations.component.ts:\nDeletion Response:', resp);
+                //console.log('view-all-reservations.component.ts:\nDeletion Response:', resp);
                 if ( resp ) {
-                    window.location.reload();
+                    //window.location.reload();
+                    //console.log('attempting to refresh page');
+                    //refetch data
+                    this.getReservations();
                 }
             });
+            console.log("Should only delete reservation #", reservationId);
         }
     }
     

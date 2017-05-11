@@ -211,25 +211,29 @@
             for (var i=0; i<req.golfcourse.reservations.length; i++ ) {
                 if ( req.golfcourse.reservations[i]._id == req.params.reservationId ) {
                     index = i;
-                    console.log("Successfully found the reservation");
+                    console.log("Successfully found reservation #" + req.golfcourse.reservations[i]._id + " at index: " + index);
                 }
             }
-            
-            tmpReservation = req.golfcourse.reservations[index];
-            
+            removed = req.golfcourse.reservations[index];
             req.golfcourse.reservations[index].remove(function(err) {
                 if (err) {
                     res.status(500).send(err);
                 }else{
                     //delete the array element
-                    req.golfcourse.reservations.splice(index,1);
+                    //NOTE: For whatever reason, array.splice is not working
+                    //as documented on W3School. It's supposed to be
+                    //.splice(start index, numOfDeletions from start index, newElementToInsert at startIndex)
+                    //but in this line of code it's working as .splice(startIndex, indexToDelete, newElementToInsert at startIndex)
+                    req.golfcourse.reservations.splice(index,0);
+                    console.log("\nRemoved:\n", removed + "\n");
+                    
                     //then we need to save it
                     /**/
                     req.golfcourse.save(function(err) {
                         if (err) {
                             res.status(500).send(err);
                         }else{
-                            res.json(tmpReservation);
+                            res.json(req.golfcourse.reservations);
                         }
                     });
                     /**/
