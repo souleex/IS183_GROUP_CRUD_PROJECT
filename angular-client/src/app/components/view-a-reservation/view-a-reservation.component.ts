@@ -123,7 +123,7 @@ export class ViewAReservationComponent implements OnInit {
                 //and the reservation array is undefined until then
                 this.newReservationForm = this.formBuilder.group({
                     customerName: [this.reservation['customerName'],Validators.required],
-                    date: [this.reservation['date'].substring(0, this.getStringPosition(this.reservation['date'], ':', 2)),Validators.required],
+                    date: [this.dateFormat(this.reservation['date']),Validators.required],
                     walkRide: [this.reservation['walkRide'],Validators.required],
                     //equipments will become an array of equipments
                     equipments: this.formBuilder.array([
@@ -264,5 +264,21 @@ export class ViewAReservationComponent implements OnInit {
      //this function makes it easier to find substrings for the URI or other string object
     getStringPosition(myString, subString, index) {
        return myString.split(subString, index).join(subString).length;
+    }
+    
+    dateFormat(myDate) {
+        console.log("Date In: ", myDate);
+        let dateOut = new Date(myDate.substring(0, this.getStringPosition(myDate, ':', 2)));
+        
+        let dateOptions = {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric'
+        };
+        
+        //console.log("Date Out: ", dateOut.toLocaleString('en-US', dateOptions).replace(/,/,''));
+        return dateOut.toLocaleString('en-US', dateOptions).replace(/,/,'');
     }
 }
