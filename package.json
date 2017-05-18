@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "start cmd.exe /K mongod && gulp"
+    "start": "start cmd.exe /C mongod && gulp"
   },
   "repository": {
     "type": "git",
