@@ -100,6 +100,10 @@ export class ViewAReservationComponent implements OnInit {
             }
         });
         
+        //check for browser user agent for correct date detection capability
+        //only checks for Firefox or Chrome
+        let userAgent = navigator.userAgent;
+        
         //create our reservation form fields
         this.newReservationForm = this.formBuilder.group({
             customerName: [,Validators.required],
@@ -122,7 +126,7 @@ export class ViewAReservationComponent implements OnInit {
                 //and the reservation array is undefined until then
                 this.newReservationForm = this.formBuilder.group({
                     customerName: [this.reservation['customerName'],Validators.required],
-                    date: [this.dateFormat(this.reservation['date']),Validators.required],
+                    date: [this.dateFormat(this.reservation['date'], userAgent),Validators.required],
                     walkRide: [this.reservation['walkRide'],Validators.required],
                     //equipments will become an array of equipments
                     equipments: this.formBuilder.array([
@@ -266,7 +270,7 @@ export class ViewAReservationComponent implements OnInit {
     }
     
     //returns a human readable date in the format of DD/MM/YYYY SS
-    dateFormat(myDate) {
+    dateFormat(myDate, myUserAgent) {
         //console.log("Date In: ", myDate);
         let dateOut = new Date(myDate.substring(0, this.getStringPosition(myDate, ':', 2)));
         
@@ -279,6 +283,10 @@ export class ViewAReservationComponent implements OnInit {
         };
         
         //console.log("Date Out: ", dateOut.toLocaleString('en-US', dateOptions).replace(/,/,''));
+        if ( myUserAgent.includes("Chrome") ) {
+            return myDate.substring(0, this.getStringPosition(myDate, ':', 2));
+        }
+        
         return dateOut.toLocaleString('en-US', dateOptions).replace(/,/,'');
     }
 }
